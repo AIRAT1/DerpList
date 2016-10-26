@@ -7,6 +7,8 @@ package de.android.derplist.model;
 public class ListItem {
     private String title;
     private int imageResId;
+    private String subTitle;
+    private boolean favorite = false;
 
     public String getTitle() {
         return title;
@@ -22,5 +24,21 @@ public class ListItem {
 
     public void setImageResId(int imageResId) {
         this.imageResId = imageResId;
+    }
+
+    public String getSubTitle() {
+        return subTitle;
+    }
+
+    public void setSubTitle(String subTitle) {
+        this.subTitle = subTitle;
+    }
+
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
     }
 }
