@@ -50,7 +50,7 @@ public class DerpAdapter extends RecyclerView.Adapter<DerpAdapter.DerpHolder>{
         public DerpHolder(View itemView) {
             super(itemView);
 
-            title = (TextView)itemView.findViewById(R.id.lbl_item_txt);
+            title = (TextView)itemView.findViewById(R.id.lbl_item_text);
             icon = (ImageView)itemView.findViewById(R.id.im_item_icon);
             container = itemView.findViewById(R.id.cont_item_root);
         }
