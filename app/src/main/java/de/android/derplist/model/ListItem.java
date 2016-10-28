@@ -34,11 +34,11 @@ public class ListItem {
         this.subTitle = subTitle;
     }
 
-    public boolean isFavorite() {
+    public boolean isFavourite() {
         return favorite;
     }
 
-    public void setFavorite(boolean favorite) {
+    public void setFavourite(boolean favorite) {
         this.favorite = favorite;
     }
 }

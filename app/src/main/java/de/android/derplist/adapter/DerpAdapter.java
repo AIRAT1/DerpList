@@ -16,13 +16,15 @@ import de.android.derplist.R;
 import de.android.derplist.model.ListItem;
 
 public class DerpAdapter extends RecyclerView.Adapter<DerpAdapter.DerpHolder>{
+
     private List<ListItem> listData;
     private LayoutInflater inflater;
+
     private ItemClickCallback itemClickCallback;
 
-    public void setListData(ArrayList<ListItem> excerciseList) {
+    public void setListData(ArrayList<ListItem> exerciseList) {
         this.listData.clear();
-        this.listData.addAll(excerciseList);
+        this.listData.addAll(exerciseList);
     }
 
     public interface ItemClickCallback {
@@ -34,14 +36,13 @@ public class DerpAdapter extends RecyclerView.Adapter<DerpAdapter.DerpHolder>{
         this.itemClickCallback = itemClickCallback;
     }
 
-    public DerpAdapter(List<ListItem> listData, Context context) {
-        this.inflater = LayoutInflater.from(context);
+    public DerpAdapter(List<ListItem> listData, Context c){
+        inflater = LayoutInflater.from(c);
         this.listData = listData;
     }
 
-
     @Override
-    public DerpHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public DerpAdapter.DerpHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.list_item, parent, false);
         return new DerpHolder(view);
     }
@@ -51,10 +52,9 @@ public class DerpAdapter extends RecyclerView.Adapter<DerpAdapter.DerpHolder>{
         ListItem item = listData.get(position);
         holder.title.setText(item.getTitle());
         holder.subTitle.setText(item.getSubTitle());
-        //holder.secondaryIcon.setImageResource(item.getImageResId());
-        if (item.isFavorite()) {
+        if (item.isFavourite()){
             holder.secondaryIcon.setImageResource(R.drawable.ic_star);
-        }else {
+        } else {
             holder.secondaryIcon.setImageResource(R.drawable.ic_star_border);
         }
     }
@@ -65,29 +65,29 @@ public class DerpAdapter extends RecyclerView.Adapter<DerpAdapter.DerpHolder>{
     }
 
     class DerpHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        private ImageView thumbnail;
-        private ImageView secondaryIcon;
-        private TextView title;
-        private TextView subTitle;
-        private View container;
+
+        ImageView thumbnail;
+        ImageView secondaryIcon;
+        TextView title;
+        TextView subTitle;
+        View container;
 
         public DerpHolder(View itemView) {
             super(itemView);
-
-            thumbnail = (ImageView) itemView.findViewById(R.id.im_item_icon);
+            thumbnail = (ImageView)itemView.findViewById(R.id.im_item_icon);
             secondaryIcon = (ImageView)itemView.findViewById(R.id.im_item_icon_secondary);
             secondaryIcon.setOnClickListener(this);
             subTitle = (TextView)itemView.findViewById(R.id.lbl_item_sub_title);
             title = (TextView)itemView.findViewById(R.id.lbl_item_text);
-            container = itemView.findViewById(R.id.cont_item_root);
+            container = (View)itemView.findViewById(R.id.cont_item_root);
             container.setOnClickListener(this);
         }
 
         @Override
-        public void onClick(View view) {
-            if (view.getId() == R.id.cont_item_root) {
+        public void onClick(View v) {
+            if (v.getId() == R.id.cont_item_root){
                 itemClickCallback.onItemClick(getAdapterPosition());
-            }else {
+            } else {
                 itemClickCallback.onSecondaryIconClick(getAdapterPosition());
             }
         }

@@ -13,12 +13,12 @@ import de.android.derplist.adapter.DerpAdapter;
 import de.android.derplist.model.DerpData;
 import de.android.derplist.model.ListItem;
 
-public class ListActivity extends AppCompatActivity implements DerpAdapter.ItemClickCallback{
+public class ListActivity extends AppCompatActivity implements DerpAdapter.ItemClickCallback {
     private static final String BUNDLE_EXTRAS = "BUNDLE_EXTRAS";
     private static final String EXTRA_QUOTE = "EXTRA_QUOTE";
     private static final String EXTRA_ATTR = "EXTRA_ATTR";
 
-    private RecyclerView recView;
+    private RecyclerView recyclerView;
     private DerpAdapter adapter;
     private ArrayList listData;
 
@@ -27,13 +27,13 @@ public class ListActivity extends AppCompatActivity implements DerpAdapter.ItemC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
-        listData = (ArrayList)DerpData.getListData();
+        listData = (ArrayList) DerpData.getListData();
 
-        recView = (RecyclerView)findViewById(R.id.rec_list);
-        recView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView = (RecyclerView) findViewById(R.id.rec_list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         adapter = new DerpAdapter(DerpData.getListData(), this);
-        recView.setAdapter(adapter);
+        recyclerView.setAdapter(adapter);
         adapter.setItemClickCallback(this);
     }
 
@@ -54,11 +54,13 @@ public class ListActivity extends AppCompatActivity implements DerpAdapter.ItemC
     @Override
     public void onSecondaryIconClick(int p) {
         ListItem item = (ListItem) listData.get(p);
-        if (item.isFavorite()) {
-            item.setFavorite(false);
-        }else {
-            item.setFavorite(true);
+        //update our data
+        if (item.isFavourite()){
+            item.setFavourite(false);
+        } else {
+            item.setFavourite(true);
         }
+        //pass new data to adapter and update
         adapter.setListData(listData);
         adapter.notifyDataSetChanged();
     }
