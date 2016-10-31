@@ -5,6 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
+import android.view.View;
+import android.widget.Button;
 
 import java.util.ArrayList;
 
@@ -32,9 +35,37 @@ public class ListActivity extends AppCompatActivity implements DerpAdapter.ItemC
         recyclerView = (RecyclerView) findViewById(R.id.rec_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new DerpAdapter(DerpData.getListData(), this);
+        adapter = new DerpAdapter(listData, this);
         recyclerView.setAdapter(adapter);
         adapter.setItemClickCallback(this);
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(createHelperCallback());
+        itemTouchHelper.attachToRecyclerView(recyclerView);
+
+        Button addItem = (Button)findViewById(R.id.btn_add_item);
+        addItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addItemToList();
+            }
+        });
+    }
+    private ItemTouchHelper.Callback createHelperCallback() {
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback =
+                new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN,
+                        ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+                    @Override
+                    public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
+                                          RecyclerView.ViewHolder target) {
+                        moveItem(viewHolder.getAdapterPosition(), target.getAdapterPosition());
+                        return true;
+                    }
+
+                    @Override
+                    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                        deleteItem(viewHolder.getAdapterPosition());
+                    }
+                }
     }
 
     @Override

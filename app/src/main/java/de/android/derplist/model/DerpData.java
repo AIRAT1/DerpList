@@ -3,6 +3,7 @@ package de.android.derplist.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import de.android.derplist.R;
 
@@ -50,5 +51,14 @@ public class DerpData {
             }
         }
         return data;
+    }
+    public static ListItem getRandomListItem() {
+        int rand = new Random().nextInt(6);
+
+        ListItem item = new ListItem();
+        item.setTitle(titles[rand]);
+        item.setSubTitle(subTitles[rand]);
+
+        return item;
     }
 }
