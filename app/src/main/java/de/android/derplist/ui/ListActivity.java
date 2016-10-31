@@ -65,7 +65,23 @@ public class ListActivity extends AppCompatActivity implements DerpAdapter.ItemC
                     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                         deleteItem(viewHolder.getAdapterPosition());
                     }
-                }
+                };
+                return simpleItemTouchCallback;
+    }
+    private void addItemToList() {
+        ListItem item = DerpData.getRandomListItem();
+        listData.add(item);
+        adapter.notifyItemInserted(listData.indexOf(item));
+    }
+    private void moveItem(int oldPos, int newPos) {
+        ListItem item = (ListItem)listData.get(oldPos);
+        listData.remove(oldPos);
+        listData.add(newPos, item);
+        adapter.notifyItemMoved(oldPos, newPos);
+    }
+    private void deleteItem(final int position) {
+        listData.remove(position);
+        adapter.notifyItemRemoved(position);
     }
 
     @Override
