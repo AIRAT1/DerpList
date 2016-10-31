@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -44,7 +43,7 @@ public class DerpAdapter extends RecyclerView.Adapter<DerpAdapter.DerpHolder>{
 
     @Override
     public DerpAdapter.DerpHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.card_item, parent, false);
+        View view = inflater.inflate(R.layout.list_item, parent, false);
         return new DerpHolder(view);
     }
 
@@ -53,11 +52,11 @@ public class DerpAdapter extends RecyclerView.Adapter<DerpAdapter.DerpHolder>{
         ListItem item = listData.get(position);
         holder.title.setText(item.getTitle());
         holder.subTitle.setText(item.getSubTitle());
-//        if (item.isFavourite()){
-//            holder.secondaryIcon.setImageResource(R.drawable.ic_star);
-//        } else {
-//            holder.secondaryIcon.setImageResource(R.drawable.ic_star_border);
-//        }
+        if (item.isFavourite()){
+            holder.secondaryIcon.setImageResource(R.drawable.ic_star);
+        } else {
+            holder.secondaryIcon.setImageResource(R.drawable.ic_star_border);
+        }
     }
 
     @Override
@@ -68,36 +67,36 @@ public class DerpAdapter extends RecyclerView.Adapter<DerpAdapter.DerpHolder>{
     class DerpHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private ImageView thumbnail;
-//        private ImageView secondaryIcon;
+        private ImageView secondaryIcon;
         private TextView title;
         private TextView subTitle;
         private View container;
-        private Button load;
+//        private Button load;
 
         public DerpHolder(View itemView) {
             super(itemView);
             thumbnail = (ImageView)itemView.findViewById(R.id.im_item_icon);
-//            secondaryIcon = (ImageView)itemView.findViewById(R.id.im_item_icon_secondary);
-//            secondaryIcon.setOnClickListener(this);
+            secondaryIcon = (ImageView)itemView.findViewById(R.id.im_item_icon_secondary);
+            secondaryIcon.setOnClickListener(this);
             subTitle = (TextView)itemView.findViewById(R.id.lbl_item_sub_title);
             title = (TextView)itemView.findViewById(R.id.lbl_item_text);
-            load = (Button)itemView.findViewById(R.id.btn_card_load);
-            load.setOnClickListener(this);
+//            load = (Button)itemView.findViewById(R.id.btn_card_load);
+//            load.setOnClickListener(this);
             container = itemView.findViewById(R.id.cont_item_root);
-//            container.setOnClickListener(this);
+            container.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-//            if (v.getId() == R.id.cont_item_root){
-//                itemClickCallback.onItemClick(getAdapterPosition());
-//            } else {
-//                itemClickCallback.onSecondaryIconClick(getAdapterPosition());
-//            }
-
-            if (v.getId() == R.id.btn_card_load) {
+            if (v.getId() == R.id.cont_item_root){
                 itemClickCallback.onItemClick(getAdapterPosition());
+            } else {
+                itemClickCallback.onSecondaryIconClick(getAdapterPosition());
             }
+
+//            if (v.getId() == R.id.btn_card_load) {
+//                itemClickCallback.onItemClick(getAdapterPosition());
+//            }
         }
     }
 }
