@@ -50,6 +50,7 @@ public class ListActivity extends AppCompatActivity implements DerpAdapter.ItemC
             }
         });
     }
+
     private ItemTouchHelper.Callback createHelperCallback() {
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback =
                 new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN,
@@ -108,7 +109,7 @@ public class ListActivity extends AppCompatActivity implements DerpAdapter.ItemC
             item.setFavourite(true);
         }
         //pass new data to adapter and update
-        adapter.setListData(listData);
+        //adapter.setListData(listData);
         adapter.notifyDataSetChanged();
     }
 }
