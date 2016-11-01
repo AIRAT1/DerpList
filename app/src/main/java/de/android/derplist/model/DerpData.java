@@ -47,6 +47,7 @@ public class DerpData {
                 ListItem item = new ListItem();
                 item.setTitle(titles[i]);
                 item.setSubTitle(subTitles[i]);
+                item.setImageResId(icon);
                 data.add(item);
             }
         }
@@ -58,6 +59,7 @@ public class DerpData {
         ListItem item = new ListItem();
         item.setTitle(titles[rand]);
         item.setSubTitle(subTitles[rand]);
+        item.setImageResId(icon);
 
         return item;
     }
